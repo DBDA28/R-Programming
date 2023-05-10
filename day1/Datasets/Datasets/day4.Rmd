@@ -1,0 +1,39 @@
+---
+title: "day4"
+author: "dbda"
+date: "2023-05-10"
+output: html_document
+---
+
+loading the data
+```{r}
+setwd("F:/DBDA/R_Programming/day1/Datasets/Datasets")
+cars93 <- read.csv("cars93.csv")
+head(cars93)
+```
+
+Price summary per type
+```{r}
+library(dplyr)
+cars93 %>% 
+group_by(Type) %>% 
+  summarise(avgprice=mean(Price,na.rm=T),
+            sd_price=sd(Price,na.rm=T))
+```
+```{r}
+cars93 <- read.csv("cars93.csv")
+table(cars93$Type)
+barplot(table(cars93$Type),
+        main="Types of Cars",
+        col="darksalmon")
+```
+```{r}
+library(ggplot2)
+sum_car <- cars93 %>% 
+  group_by(AirBags) %>% 
+  summarise(avg_price=mean(Price,na.rm=T))
+ggplot(data=cars93,
+        aes(x=Price,y=MPG.city, size=EngineSize))+
+          geom_point(color="rosybrown3",alpha=0.4)
+```
+
